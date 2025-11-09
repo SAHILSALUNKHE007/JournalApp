@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class JournalEntryService {
@@ -29,8 +30,8 @@ public class JournalEntryService {
     }
 
     // Get entry by ID
-    public JournalEntry getJournalEntryById(String id){
-        return journalEntryRepository.findById(id).orElse(null);
+    public Optional<JournalEntry> getJournalEntryById(String id){
+        return journalEntryRepository.findById(id);
     }
 
     // Update entry by ID
