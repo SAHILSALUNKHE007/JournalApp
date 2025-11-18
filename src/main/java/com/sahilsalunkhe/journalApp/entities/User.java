@@ -8,9 +8,11 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
 import java.util.List;
 
-@Document(collation = "users")
+@Document(collection = "users")
+
 @Data
 public class User {
     @Id
@@ -21,5 +23,6 @@ public class User {
     @NonNull
     private String password;
     @DBRef
-    private List<JournalEntry> journalEntries;
+    private List<JournalEntry> journalEntries=new ArrayList<>();
+    private List<String> roles=new ArrayList<>();
 }
