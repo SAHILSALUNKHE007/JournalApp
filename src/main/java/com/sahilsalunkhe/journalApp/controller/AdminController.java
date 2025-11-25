@@ -2,6 +2,7 @@ package com.sahilsalunkhe.journalApp.controller;
 
 import com.sahilsalunkhe.journalApp.entities.User;
 import com.sahilsalunkhe.journalApp.services.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/admin")
+
 public class AdminController {
 
     @Autowired

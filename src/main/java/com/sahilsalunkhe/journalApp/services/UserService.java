@@ -3,7 +3,10 @@ package com.sahilsalunkhe.journalApp.services;
 import com.sahilsalunkhe.journalApp.entities.JournalEntry;
 import com.sahilsalunkhe.journalApp.entities.User;
 import com.sahilsalunkhe.journalApp.repositories.UserRepositories;
+import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -13,6 +16,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class UserService {
     @Autowired
     private UserRepositories userRepositories;
@@ -20,24 +24,33 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-
+    //private  static  final Logger logger= LoggerFactory.getLogger(UserService.class);
     public User save_user(User user){
-       if(user.getPassword()!=null && !user.getPassword().startsWith("$2a$")){
-           user.setPassword(passwordEncoder.encode(user.getPassword()));
-       }
-        if (user.getRoles() == null || user.getRoles().isEmpty()) {
-            user.setRoles(List.of("USER"));
+        try {
+            if (user.getPassword() != null && !user.getPassword().startsWith("$2a$")) {
+                user.setPassword(passwordEncoder.encode(user.getPassword()));
+            }
+            if (user.getRoles() == null || user.getRoles().isEmpty()) {
+                user.setRoles(List.of("USER"));
+            }
+            return userRepositories.save(user);
+        }catch (Exception e){
+            log.warn("User Already Present ");
         }
-       return userRepositories.save(user);
+        return  null;
     }
-    public User saveAdminUser(User user){
-        if(user.getPassword()!=null && !user.getPassword().startsWith("$2a$")){
+    public User saveAdminUser(User user) {
+        try{if (user.getPassword() != null && !user.getPassword().startsWith("$2a$")) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
         }
         if (user.getRoles() == null || user.getRoles().isEmpty()) {
-            user.setRoles(List.of("USER","ADMIN"));
+            user.setRoles(List.of("USER", "ADMIN"));
         }
         return userRepositories.save(user);
+    }catch (Exception e){
+            log.warn("Admin Already Present ");
+        }
+        return  null;
     }
     public  User save(User user){
         return  userRepositories.save(user);

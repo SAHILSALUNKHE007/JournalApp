@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: JournalApp
+  data:
+    mongodb:
+      uri: "mongodb+srv://sahilsalunkhe:Sahil%401234@cluster0.fsbb2dm.mongodb.net/journaldb?retryWrites=true&w=majority"
+      auto-index-creation: true
+
+server:
+  port: 8081

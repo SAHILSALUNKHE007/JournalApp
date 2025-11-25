@@ -17,8 +17,8 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
-@Profile("dev")
-public class SpringSecurity {
+@Profile("prod")
+public class SpringSecurityP {
 
     // 1️⃣ Expose UserDetailsService as a BEAN
     @Bean
@@ -49,11 +49,8 @@ public class SpringSecurity {
                 .csrf(csrf -> csrf.disable())
                 .authenticationProvider(authenticationProvider())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(HttpMethod.POST,"/users").permitAll()
-                        .requestMatchers("/admin/allUser").hasRole("ADMIN")
-                        .requestMatchers("/api/**").hasAnyRole("USER", "ADMIN")
-                        .requestMatchers("/users/**").authenticated()
-                        .anyRequest().permitAll()
+
+                        .anyRequest().authenticated()
                 )
                 .httpBasic(basic -> {})
                 .formLogin(form -> form
