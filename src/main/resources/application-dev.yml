@@ -5,6 +5,17 @@ spring:
     mongodb:
       uri: "mongodb+srv://sahilsalunkhe:Sahil%401234@cluster0.fsbb2dm.mongodb.net/journaldb?retryWrites=true&w=majority"
       auto-index-creation: true
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: sahilindira007@gmail.com
+    password: rhej hfpw qoww rhpe
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 
 server:
   port: 8080

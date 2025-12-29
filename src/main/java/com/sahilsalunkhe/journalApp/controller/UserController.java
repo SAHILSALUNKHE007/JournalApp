@@ -74,4 +74,10 @@ public class UserController {
             return ResponseEntity.notFound().build(); // 404 if not found
         }
     }
+    @GetMapping
+    public ResponseEntity<String> greeting(){
+        String username=SecurityContextHolder.getContext()
+                .getAuthentication().getName();
+        return  new ResponseEntity<>("Hello "+username,HttpStatus.OK);
+    }
 }
